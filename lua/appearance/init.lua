@@ -1,5 +1,5 @@
 local tabline_colors = nil
-local statusline_colors = nil
+local _statusline_colors = nil
 
 local palettes = {
   kanagawa = "appearance.custom_schemes.kanagawa",

@@ -6,12 +6,12 @@ return {
     components = {
       left = {
         'mode',
-        'path',
-        'git',
       },
       center = {
       },
       right = {
+        'path',
+        'git',
         'progress',
       }
     },
@@ -52,7 +52,10 @@ return {
         },
       },
       path = {
-        truncate = false,
+        trunc_width = 8,
+        truncate = {
+          chars = 4,
+        },
         hl = {
           primary = 'Normal',
         },
