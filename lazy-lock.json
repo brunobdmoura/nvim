@@ -25,5 +25,6 @@
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
   "slimline.nvim": { "branch": "main", "commit": "bf2eae25209263e63e86afdcb3ed4e97a57568a7" },
   "telescope.nvim": { "branch": "master", "commit": "b4da76be54691e854d3e0e02c36b0245f945c2c7" },
+  "venn.nvim": { "branch": "main", "commit": "b09c2f36ddf70b498281845109bedcf08a7e0de0" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" }
 }
