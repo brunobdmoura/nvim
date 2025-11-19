@@ -11,7 +11,6 @@ material.setup({
     keywords = { bold = false },
   },
   custom_highlights = {
-    TelescopeBorder            = { fg = colors.syntax.comments },
     ["@keyword"]               = { fg = colors.main.purple },
     ["@label"]                 = { fg = colors.main.paleblue },
     ["@punctuation"]           = { fg = colors.main.gray },

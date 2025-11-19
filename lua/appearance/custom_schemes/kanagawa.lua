@@ -33,7 +33,7 @@ kanagawa.setup({
       CursorLine                 = { bg = colors.palette.dragonBlack4 },
       FloatBorder                = { bg = "none", fg = colors.palette.dragonBlack4 },
       WinSeparator               = { fg = colors.palette.dragonBlack4 },
-      TelescopeBorder            = { fg = colors.palette.dragonBlack4, bg = colors.palette.dragonBlack3 },
+      FzfLuaBorder               = { fg = colors.palette.dragonBlack4, bg = colors.palette.dragonBlack3 },
       IblIndent                  = { fg = colors.palette.dragonBlack4 },
       NvimTreeIndentMarker       = { fg = colors.palette.dragonBlack6 },
       ["@variable.builtin"]      = { italic = false },

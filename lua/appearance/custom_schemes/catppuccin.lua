@@ -46,7 +46,6 @@ catpuccin.setup({
     ["@property"]          = { fg = plastlin.subtext0  },
       CursorLineNr         = { fg = plastlin.peach },
       WinSeparator         = { fg = scheme.surface2 },
-      TelescopeBorder      = { fg = scheme.surface2, bg = scheme.base },
       FloatBorder          = { fg = scheme.surface2, bg = scheme.base },
       NvimTreeNormal       = { fg = scheme.text,     bg = scheme.base },
       NvimTreeIndentMarker = { fg = scheme.surface2, bg = scheme.base },

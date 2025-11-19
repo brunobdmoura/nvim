@@ -95,7 +95,6 @@ function M.title(bufnr, is_selected)
   local filetypes = {
     ["git"]                 = "Git",
     ["fugitive"]            = "Fugitive",
-    ["TelescopePrompt"]     = "Telescope",
     ["NvimTree"]            = "NvimTree",
     ["DiffviewFileHistory"] = "Diffview",
   }
