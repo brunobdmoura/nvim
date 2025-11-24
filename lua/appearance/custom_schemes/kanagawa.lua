@@ -22,13 +22,12 @@ kanagawa.setup({
   overrides = function(colors)
     -- Basically turn the background darker, correct border colors, remove unused italics
     -- and add some custom configurations
-    local main_color = colors.palette.dragonRed
     return {
       CursorLineNr               = { bold = false },
       MatchParen                 = { bold = false },
       NormalFloat                = { bg = "none" },
       FloatTitle                 = { bg = "none" },
-      Keyword                    = { fg = main_color },
+      Keyword                    = { fg = colors.palette.dragonRed },
       Boolean                    = { bold = false },
       CursorLine                 = { bg = colors.palette.dragonBlack4 },
       FloatBorder                = { bg = "none", fg = colors.palette.dragonBlack4 },

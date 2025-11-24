@@ -2,11 +2,15 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local user_group = augroup("user", {})
 
--- Remove empty spaces at the end of lines
+-- Remove empty spaces at the end of lines, except on
+-- patch files, thanks Luppi.
 autocmd("BufWritePre", {
   group = user_group,
-  pattern = "*",
-  command = "%s/\\s\\+$//e"
+  callback = function()
+    if vim.fn.expand('%:e') ~= "patch" then
+      vim.cmd([[%s/\s\+$//e]])
+    end
+  end
 })
 
 -- Avoid reaplying evals on statusline whenever opening quickfix list
