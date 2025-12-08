@@ -35,11 +35,8 @@ map("n", "<leader>rw", "cw<C-r>0<C-c>")
 map("v", "p", '"_dP')
 
 -- Terminal shenanigans
-map("t", "<Esc><Esc>", "<C-\\><C-n>")
+map("t", "<C-c>", "<C-\\><C-n>")
 map({ "n", "t" }, "<leader>t", ":FloatingTerminal <CR>")
-
--- Alignment
-map( "v" , "<leader>a", ":AlignLineEnds <CR>")
 
 -- Copy paste from outside/within vim; requires xclip
 map("v", "<Enter>", [["+y]]) -- To be used with the same behavior as tmux
