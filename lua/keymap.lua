@@ -42,7 +42,7 @@ map({ "n", "t" }, "<leader>t", ":FloatingTerminal <CR>")
 map( "v" , "<leader>a", ":AlignLineEnds <CR>")
 
 -- Copy paste from outside/within vim; requires xclip
-map("v", "<leader>y", [["+y]])
+map("v", "<Enter>", [["+y]]) -- To be used with the same behavior as tmux
 map("n", "<leader>y", [["+y]])
 map("n", "<leader>Y", [["+Y]])
 
