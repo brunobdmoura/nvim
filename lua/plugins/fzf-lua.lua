@@ -8,8 +8,7 @@ return {
         backdrop = 100,
         preview = {
           scrollbar = false,
-          vertical = "down:70%",
-          layout = "vertical"
+          hidden = "always"
         }
       },
       keymap = {
