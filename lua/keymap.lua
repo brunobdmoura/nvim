@@ -38,7 +38,7 @@ map("v", "p", '"_dP')
 map("t", "<leader><C-c>", "<C-\\><C-n>")
 map({ "n", "t" }, "<leader>t", ":FloatingTerminal <CR>")
 
--- Copy paste from outside/within vim; requires xclip
+-- Copy paste from outside/within vim; requires xclip | wl-copy
 map("v", "<Enter>", [["+y]]) -- To be used with the same behavior as tmux
 map("n", "<leader>y", [["+y]])
 map("n", "<leader>Y", [["+Y]])
