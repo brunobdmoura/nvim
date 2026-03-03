@@ -4,11 +4,16 @@ return {
   config = function()
     require("fzf-lua").setup({
       fzf_colors = true,
+      fzf_opts = {
+        ["--layout"] = "default"
+      },
       winopts = {
         backdrop = 100,
         preview = {
           scrollbar = false,
-          hidden = "always"
+          -- hidden = "always"
+          layout = "vertical",
+          vertical = "up:60%",
         }
       },
       keymap = {
