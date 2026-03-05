@@ -108,7 +108,7 @@ function M.title(bufnr, is_selected)
   elseif filetypes[filetype] then
     title = filetypes[filetype]
   else
-    title = vim.fn.pathshorten(vim.fn.fnamemodify(file, ":p:~:t"))
+    title = vim.fn.pathshorten(vim.fn.fnamemodify(file, ":."))
   end
 
   -- Add the file icon.
