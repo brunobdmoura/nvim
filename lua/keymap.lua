@@ -1,65 +1,61 @@
-local function map(mode, key, command, opts)
-  opts = opts or { noremap = false, silent = true }
-  vim.keymap.set(mode, key, command, opts)
+--- Custom default options function
+local function copts(opts)
+  if opts.noremap == nil then
+    opts.noremap = false
+  end
+
+  if opts.silent == nil then
+    opts.silent = true
+  end
+
+  return opts
 end
 
--- General utils
-map("n", "<leader>i", "i<CR><Esc><S-o>")
+vim.keymap.set("n", "<leader>nt", ":tabnew<CR>", copts({ desc = "Creates a new tab" }))
+vim.keymap.set("n", "<leader>ca", ":tabo<CR>", copts({ desc = "Closes all tabs except the current one" }))
 
--- Split movement
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-l>", "<C-w>l")
-map("n", "<C-q>", "<C-w>q")
+vim.keymap.set("n", "<C-h>", "<C-w>h", copts({ desc = "Moves to right window" }))
+vim.keymap.set("n", "<C-j>", "<C-w>j", copts({ desc = "Moves to bottom window" }))
+vim.keymap.set("n", "<C-k>", "<C-w>k", copts({ desc = "Moves to upper window" }))
+vim.keymap.set("n", "<C-l>", "<C-w>l", copts({ desc = "Moves to left window" }))
+vim.keymap.set("n", "<C-q>", "<C-w>q", copts({ desc = "Closes window" }))
 
--- Tab movement
-map("n", "<", ":tabp<CR>")
-map("n", ">", ":tabn<CR>")
-map("n", "<S-l>", ":bnext<CR>")
-map("n", "<S-h>", ":bprevious<CR>")
+vim.keymap.set("n", "<", ":tabp<CR>", copts({ desc = "Next tab" }))
+vim.keymap.set("n", ">", ":tabn<CR>", copts({ desc = "Previous tab" }))
+vim.keymap.set("n", "<S-l>", ":bnext<CR>", copts({ desc = "Next buffer" }))
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>", copts({ desc = "Previous buffer" }))
 
--- Lazy movement
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz", copts({ desc = "Half page down centered" }))
+vim.keymap.set("n", "<C-u>", "<C-u>zz", copts({ desc = "Half page up centered" }))
 
--- Quickfix movement
-map("n", "J", ":cnext<CR>")
-map("n", "K", ":cprev<CR>")
+vim.keymap.set("n", "J", ":cnext<CR>", copts({ desc = "Next quickfix entry" }))
+vim.keymap.set("n", "K", ":cprev<CR>", copts({ desc = "Previous quickfix entry" }))
 
--- Lazy saving/quitting
-map("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>w", ":w<CR>", copts({ desc = "Save buffer" }))
 
--- Overide shenanigans
-map("n", "<leader>rw", "cw<C-r>0<C-c>")
-map("v", "p", '"_dP')
+vim.keymap.set("n", "<leader>rw", "cw<C-r>0<C-c>", copts({ desc = "Override the current word with yanked text" }))
+vim.keymap.set("v", "p", '"_dP', copts({ desc = "Paste without yanking" }))
 
--- Terminal shenanigans
-map("t", "<leader><C-c>", "<C-\\><C-n>")
-map({ "n", "t" }, "<leader>t", ":FloatingTerminal <CR>")
+vim.keymap.set("t", "<leader><C-c>", "<C-\\><C-n>", copts({ desc = "'Escapes' the open floating terminal" }))
+vim.keymap.set({ "n", "t" }, "<leader>t", ":FloatingTerminal <CR>", copts({ desc = "Opens the floating terminal" }))
 
--- Copy paste from outside/within vim; requires xclip | wl-copy
-map("v", "<Enter>", [["+y]]) -- To be used with the same behavior as tmux
-map("n", "<leader>y", [["+y]])
-map("n", "<leader>Y", [["+Y]])
+vim.keymap.set("v", "<Enter>", [["+y]], copts({ desc = "Copies selected text to clipboard (same behavior as tmux)" }))
+vim.keymap.set("n", "<leader>y", [["+y]], copts({ desc = "Copies select text to clipboard" }))
+vim.keymap.set("n", "<leader>Y", [["+Y]], copts({ desc = "Copies select text to clipboard" }))
 
--- Visual mode identation
-map("v", "<Tab>",   ">gv")
-map("v", "<S-Tab>", "<gv")
+vim.keymap.set("v", "<Tab>",   ">gv", copts({ desc = "Indent right and reselect" }))
+vim.keymap.set("v", "<S-Tab>", "<gv", copts({ desc = "Indent left and reselect" }))
 
--- Visual mode line movement
-map("v", "J", ":m '>+1'<CR>gv=gv")
-map("v", "K", ":m '<-2'<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1'<CR>gv=gv", copts({ desc = "Move selected whole selected line down" }))
+vim.keymap.set("v", "K", ":m '<-2'<CR>gv=gv", copts({ desc = "Move selected whole selected line up" }))
 
--- Split/window resizing
-map("n", "<C-Down>",  ":resize -2 <CR>")
-map("n", "<C-Up>",    ":resize +2 <CR>")
-map("n", "<C-Left>",  ":vertical resize -2 <CR>")
-map("n", "<C-Right>", ":vertical resize +2 <CR>")
+vim.keymap.set("n", "<C-Down>",  ":resize -2 <CR>", copts({ desc = "Resize split down" }))
+vim.keymap.set("n", "<C-Up>",    ":resize +2 <CR>", copts({ desc = "Resice split up" }))
+vim.keymap.set("n", "<C-Left>",  ":vertical resize -2 <CR>", copts({ desc = "Resize split left" }))
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2 <CR>", copts({ desc = "Resize split right" }))
 
--- Show LSP diagnostics
-map("n", "<leader>ds", function()
+vim.keymap.set("n", "<leader>ds", function()
   vim.diagnostic.open_float(nil, {
     focusable = false, border = "rounded"
-  })
+  }, copts({ desc = "Opens diagnostic window" }))
 end)
