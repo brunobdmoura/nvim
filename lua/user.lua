@@ -19,7 +19,17 @@ USER = {
   },
   treesitter = {
     parsers = {
-      "c", "cpp", "lua", "vimdoc", "ruby", "python", "bash", "json", "yaml"
+      "c",
+      "cpp",
+      "lua",
+      "vimdoc",
+      "ruby",
+      "python",
+      "bash",
+      "json",
+      "yaml",
+      "markdown",
+      "rust"
     }
   },
   indent_size = 4,
