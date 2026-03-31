@@ -28,6 +28,9 @@ vim.keymap.set("n", "<S-h>", ":bprevious<CR>", copts({ desc = "Previous buffer" 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", copts({ desc = "Half page down centered" }))
 vim.keymap.set("n", "<C-u>", "<C-u>zz", copts({ desc = "Half page up centered" }))
 
+vim.keymap.set("n", "n", "nzz", copts({ desc = "Half page down centered" }))
+vim.keymap.set("n", "N", "Nzz", copts({ desc = "Half page up centered" }))
+
 vim.keymap.set("n", "J", ":cnext<CR>", copts({ desc = "Next quickfix entry" }))
 vim.keymap.set("n", "K", ":cprev<CR>", copts({ desc = "Previous quickfix entry" }))
 

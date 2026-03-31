@@ -18,6 +18,5 @@ return {
     vim.api.nvim_set_keymap("n", "<leader>gp", ":Gitsigns prev_hunk <CR>", default_opts)
     vim.api.nvim_set_keymap("n", "<leader>gr", ":Gitsigns reset_hunk <CR>", default_opts)
     vim.api.nvim_set_keymap("n", "<leader>gb", ":Gitsigns blame<CR>", default_opts)
-
   end
 }
