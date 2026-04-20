@@ -4,6 +4,7 @@ return {
     local ls = require("luasnip")
     local s = ls.snippet
     local i = ls.insert_node
+    local t = ls.text_node
     local extras = require("luasnip.extras")
     local fmt = require("luasnip.extras.fmt").fmt
     local rep = extras.rep
@@ -91,8 +92,16 @@ return {
       ),
     }
 
+    local all = {
+      s("gbp", {
+        t("LP: #"),
+        i(1, "0123456"),
+        t({ "", "Gbp-Dch: full" })
+      })
+    }
+
     local custom_snips = {
-      tex = tex, c = c, lua = {}, ruby = ruby, cpp = c
+      tex = tex, c = c, lua = {}, ruby = ruby, cpp = c, all = all
     }
 
     for filetype, snips in pairs(custom_snips) do
