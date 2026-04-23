@@ -11,6 +11,11 @@ local function copts(opts)
   return opts
 end
 
+vim.keymap.set("n", "<leader>u", function ()
+  vim.cmd.packadd("nvim.undotree")
+  require("undotree").open()
+end, copts({ desc = "Opens native undotree" }))
+
 vim.keymap.set("n", "<leader>nt", ":tabnew<CR>", copts({ desc = "Creates a new tab" }))
 vim.keymap.set("n", "<leader>ca", ":tabo<CR>", copts({ desc = "Closes all tabs except the current one" }))
 
@@ -60,5 +65,5 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2 <CR>", copts({ desc = "Res
 vim.keymap.set("n", "<leader>ds", function()
   vim.diagnostic.open_float(nil, {
     focusable = false, border = "rounded"
-  }, copts({ desc = "Opens diagnostic window" }))
-end)
+  })
+end, copts({ desc = "Opens diagnostic window" }))
