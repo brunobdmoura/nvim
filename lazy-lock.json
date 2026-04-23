@@ -3,6 +3,7 @@
   "cmp-nvim-lsp": { "branch": "main", "commit": "99290b3ec1322070bcfb9e846450a46f6efa50f0" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
+  "ember": { "branch": "main", "commit": "9d22ec7b126d75274a4525840501bf8da55c75f1" },
   "fzf-lua": { "branch": "main", "commit": "b56cd2ffbce57bfd9133a645bd02cd86895a7e3f" },
   "gitsigns.nvim": { "branch": "main", "commit": "5f808b5e4fef30bd8aca1b803b4e555da07fc412" },
   "kanagawa.nvim": { "branch": "master", "commit": "18ae5771b22d8f913ef541c827a8180b4cb12c8a" },
