@@ -38,7 +38,9 @@ kanagawa.setup({
       ["@variable.builtin"]      = { italic = false },
       ["@keyword.operator"]      = { bold = false },
       ["@keyword.return"]        = { bold = false },
-      ["@string.documentation.python"] = {link = "Comment"}
+      ["@string.documentation.python"] = {link = "Comment"},
+      StatusLineNC =  { fg = "none", bg = "none" },
+      StatusLine   =  { fg = "none", bg = "none" },
     }
   end
 })
