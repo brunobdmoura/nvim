@@ -2,31 +2,31 @@ local user_group = vim.api.nvim_create_augroup("user", {})
 
 local autocmds = {
   -- Remove empty spaces at the end of lines, except on
-  -- patch files, thanks Luppi.
+  -- patch and changelog files, thanks Luppi.
   remove_white_spaces = {
     event = "BufWritePre",
     info = {
       group = user_group,
       callback = function()
-        if vim.fn.expand('%:e') ~= "patch" then
+        local filename = vim.fn.expand('%:t')
+        local extension = vim.fn.expand('%:e')
+        if extension ~= "patch" and filename ~= "changelog" then
           vim.cmd([[%s/\s\+$//e]])
         end
       end
     }
   },
--- Avoid reaplying evals on statusline whenever opening quickfix list
+-- Set each terminal buffer as unlisted
   clean_quickfix_list = {
-    event = "BufWritePre",
+    event = "TermOpen",
     info = {
       group = user_group,
       callback = function()
-        if vim.fn.expand('%:e') ~= "patch" then
-          vim.cmd([[%s/\s\+$//e]])
-        end
-      end
+        vim.api.nvim_set_option_value('bl', false, { buf = 0 })
+      end,
     }
   },
-  -- Set each terminal buffer as unlisted
+  -- Avoid reaplying evals on statusline whenever opening quickfix list
   unlist_terminal_buffers = {
     event = "FileType",
     info = {
