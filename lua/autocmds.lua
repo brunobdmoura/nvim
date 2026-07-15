@@ -47,6 +47,11 @@ local lang_meta_op = {
   rust   = { format = "rustfmt", build = "cargo build" },
   ruby   = { small_indent = USER.indent_size / 2 },
   lua    = { small_indent = USER.indent_size / 2 },
+  debchangelog = {
+    format_changelog = {
+      spacing = 2
+    }
+  }
 }
 
 for lang, data in pairs(lang_meta_op) do
@@ -63,6 +68,17 @@ for lang, data in pairs(lang_meta_op) do
         vim.opt_local.listchars:append({ leadmultispace = USER.indent_marker(data.small_indent) })
         vim.opt_local.shiftwidth = data.small_indent
         vim.opt_local.tabstop = data.small_indent
+      end
+    })
+  end
+  if data.format_changelog then
+    vim.api.nvim_create_autocmd("FileType", {
+      group = user_group,
+      pattern = lang,
+      callback = function()
+        vim.keymap.set("n", "<leader><leader>dc", function()
+          require("debian.changelog").generate(data.format_changelog.spacing)
+        end, { buffer = true, desc = "Generate debian/changelog entry from git history" })
       end
     })
   end
