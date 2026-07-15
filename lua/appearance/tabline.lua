@@ -164,7 +164,7 @@ function M.cell(index, is_selected)
 
   return helpers.format_table({
     "%", index, "T", " ",
-    M.window_count(index),
+    --M.window_count(index),
     M.title(bufnr, is_selected), "%T",
     M.modified(bufnr),
   })

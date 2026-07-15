@@ -1,5 +1,5 @@
 local tabline_colors = nil
-local _statusline_colors = nil
+local statusline_colors = nil
 
 local palettes = {
   kanagawa = "appearance.custom_schemes.kanagawa",
@@ -10,7 +10,7 @@ local palettes = {
 
 local colorscheme = require(palettes.kanagawa)
 tabline_colors = colorscheme.tabline_colors
-_statusline_colors = colorscheme.statusline_colors
+statusline_colors = colorscheme.statusline_colors
 
 require("appearance.tabline").setup({
   style  = "surrounded",
@@ -21,3 +21,12 @@ require("appearance.tabline").setup({
   },
   colors = tabline_colors
 })
+
+require("appearance.statusline").setup({
+  tokens = {
+    separators = { ' ', ' ' }
+  },
+  colors = statusline_colors,
+  use_cached_for = { "NvimTree", "fzf" }
+})
+

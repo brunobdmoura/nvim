@@ -57,23 +57,23 @@ local tabline_colors = {
 }
 
 local statusline_colors = {
-  normal      = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonOrange, bold = false },
-  visual      = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonRed,    bold = false },
-  insert      = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonGreen,  bold = false },
-  select      = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonViolet, bold = false },
-  replace     = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonYellow, bold = false },
-  quickfix    = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonOrange, bold = false },
-  shell       = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonAqua,   bold = false },
-  terminal    = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonBlue,   bold = false },
-  confirm     = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonPink,   bold = false },
-  file_name   = { fg = kolors.palette.fujiWhite,    bg = kolors.palette.dragonBlack4 },
-  line_filler = { fg = kolors.palette.dragonBlack4, bg = kolors.palette.dragonBlack4 },
-  versioning  = { fg = kolors.palette.dragonGreen,  bg = kolors.palette.dragonBlack4 },
-  file_type   = { fg = kolors.palette.dragonRed,    bg = kolors.palette.dragonBlack4 },
-  line_number = { fg = kolors.palette.dragonViolet, bg = kolors.palette.dragonBlack4 }
+  normal      = { fg = kolors.palette.dragonOrange, bold = true },
+  visual      = { fg = kolors.palette.dragonRed,    bold = true },
+  insert      = { fg = kolors.palette.dragonGreen,  bold = true },
+  select      = { fg = kolors.palette.dragonViolet, bold = true },
+  replace     = { fg = kolors.palette.dragonYellow, bold = true },
+  quickfix    = { fg = kolors.palette.dragonOrange, bold = true },
+  shell       = { fg = kolors.palette.dragonGray,   bold = true },
+  terminal    = { fg = kolors.palette.dragonBlue,   bold = true },
+  confirm     = { fg = kolors.palette.dragonPink,   bold = true },
+  file_name   = { fg = kolors.palette.dragonBlack6, bold = true },
+  line_filler = { fg = kolors.palette.dragonBlack6, bold = true },
+  versioning  = { fg = kolors.palette.dragonGreen,  bold = true },
+  file_type   = { fg = kolors.palette.dragonBlack6, bold = true },
+  line_number = { fg = kolors.palette.dragonBlack6, bold = true },
 }
 
 return {
   tabline_colors = tabline_colors,
-  statusline_colors = statusline_colors
+  statusline_colors = statusline_colors,
 }
