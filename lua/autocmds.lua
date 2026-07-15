@@ -51,6 +51,12 @@ local lang_meta_op = {
     format_changelog = {
       spacing = 2
     }
+  },
+  dep3patch = {
+    refresh_patch = {
+      spacing = 1,
+      empty_line_char = '.'
+    }
   }
 }
 
@@ -78,6 +84,20 @@ for lang, data in pairs(lang_meta_op) do
       callback = function()
         vim.keymap.set("n", "<leader><leader>dc", function()
           require("debian.changelog").generate(data.format_changelog.spacing)
+        end, { buffer = true, desc = "Generate debian/changelog entry from git history" })
+      end
+    })
+  end
+  if data.refresh_patch then
+    vim.api.nvim_create_autocmd("FileType", {
+      group = user_group,
+      pattern = lang,
+      callback = function()
+        vim.keymap.set("n", "<leader><leader>dr", function()
+          require("debian.patch").refresh(
+            data.refresh_patch.spacing,
+            data.refresh_patch.empty_line_char
+          )
         end, { buffer = true, desc = "Generate debian/changelog entry from git history" })
       end
     })
