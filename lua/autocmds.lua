@@ -50,7 +50,8 @@ local lang_meta_op = {
   debchangelog = {
     format_changelog = {
       spacing = 2
-    }
+    },
+    exec_dch = true,
   },
   dep3patch = {
     refresh_patch = {
@@ -81,10 +82,27 @@ for lang, data in pairs(lang_meta_op) do
     vim.api.nvim_create_autocmd("FileType", {
       group = user_group,
       pattern = lang,
-      callback = function()
-        vim.keymap.set("n", "<leader><leader>dc", function()
+      callback = function(args)
+        vim.api.nvim_buf_create_user_command(args.buf, "DebChangelogGenerate", function()
           require("debian.changelog").generate(data.format_changelog.spacing)
-        end, { buffer = true, desc = "Generate debian/changelog entry from git history" })
+        end, { desc = "Generate debian/changelog entry from git history" })
+
+        vim.keymap.set("n", "<leader><leader>dc", "<Cmd>DebChangelogGenerate<CR>",
+          { buffer = true, desc = "Generate debian/changelog entry from git history" })
+      end
+    })
+  end
+  if data.exec_dch then
+    vim.api.nvim_create_autocmd("FileType", {
+      group = user_group,
+      pattern = lang,
+      callback = function(args)
+        vim.api.nvim_buf_create_user_command(args.buf, "DebChangelogDch", function()
+          require("debian.changelog").exec_dch()
+        end, { desc = "Generate a new debian/changelog entry using dch" })
+
+        vim.keymap.set("n", "<leader><leader>dd", "<Cmd>DebChangelogDch<CR>",
+          { buffer = true, desc = "Generate a new debian/changelog entry using dch" })
       end
     })
   end
@@ -92,13 +110,16 @@ for lang, data in pairs(lang_meta_op) do
     vim.api.nvim_create_autocmd("FileType", {
       group = user_group,
       pattern = lang,
-      callback = function()
-        vim.keymap.set("n", "<leader><leader>dr", function()
+      callback = function(args)
+        vim.api.nvim_buf_create_user_command(args.buf, "DebPatchRefresh", function()
           require("debian.patch").refresh(
             data.refresh_patch.spacing,
             data.refresh_patch.empty_line_char
           )
-        end, { buffer = true, desc = "Generate debian/changelog entry from git history" })
+        end, { desc = "Refresh dep3 patch header" })
+
+        vim.keymap.set("n", "<leader><leader>dr", "<Cmd>DebPatchRefresh<CR>",
+          { buffer = true, desc = "Refresh dep3 patch header" })
       end
     })
   end

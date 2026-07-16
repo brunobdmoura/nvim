@@ -184,4 +184,28 @@ function M.generate(spacing)
   end)
 end
 
+--- Runs `dch -i` against the package containing the current buffer's
+--- debian/changelog, adding a new entry stanza (or reopening the last one if
+--- still unreleased) without spawning an external editor, then reloads the
+--- buffer so the new entry shows up in the current window.
+---@return nil
+function M.exec_dch()
+  local target_buf = vim.api.nvim_get_current_buf()
+  local pkg_root = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(target_buf), ":h:h")
+
+  -- Passing a null string as the changelog text puts dch in batch mode
+  -- without adding any text, so it never spawns an editor to confirm the
+  -- new stanza (which would otherwise abort with "changelog unmodified"
+  -- since nothing actually edits the temp file).
+  local cmd = string.format("cd %s && dch -i ''", vim.fn.shellescape(pkg_root))
+  local output = vim.fn.system(cmd)
+
+  if vim.v.shell_error ~= 0 then
+    vim.notify("dch failed: " .. output, vim.log.levels.ERROR)
+    return
+  end
+
+  vim.cmd("edit!")
+end
+
 return M
