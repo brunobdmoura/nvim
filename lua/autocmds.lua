@@ -16,7 +16,7 @@ local autocmds = {
       end
     }
   },
--- Set each terminal buffer as unlisted
+  -- Avoid reaplying evals on statusline whenever opening quickfix list
   clean_quickfix_list = {
     event = "TermOpen",
     info = {
@@ -26,7 +26,7 @@ local autocmds = {
       end,
     }
   },
-  -- Avoid reaplying evals on statusline whenever opening quickfix list
+-- Set each terminal buffer as unlisted
   unlist_terminal_buffers = {
     event = "FileType",
     info = {
