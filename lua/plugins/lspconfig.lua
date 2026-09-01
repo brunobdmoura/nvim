@@ -7,7 +7,9 @@ return {
       capabilities = require("cmp_nvim_lsp").default_capabilities(),
       on_attach = function(_, bufnr)
         local map_opts = { buffer = bufnr }
-        vim.keymap.set("n", ";", vim.lsp.buf.hover, map_opts)
+        vim.keymap.set("n", ";", function()
+          vim.lsp.buf.hover({ border = 'single'})
+        end, map_opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, map_opts)
         vim.keymap.set("n", "rn", vim.lsp.buf.rename, map_opts)
       end,

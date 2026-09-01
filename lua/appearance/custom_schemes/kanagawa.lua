@@ -39,6 +39,7 @@ kanagawa.setup({
       ["@keyword.operator"]      = { bold = false },
       ["@keyword.return"]        = { bold = false },
       ["@string.documentation.python"] = {link = "Comment"},
+      ["@function.macro.rust"] = {link = "Keyword"},
       StatusLineNC =  { fg = "none", bg = "none" },
       StatusLine   =  { fg = "none", bg = "none" },
     }
