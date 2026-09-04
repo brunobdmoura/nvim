@@ -15,6 +15,8 @@ return {
       end,
     })
 
+    -- vim.lsp.handlers["textDocument/semanticTokens/full"] = function() end
+
     for _, server in pairs(USER.lsp.servers) do
       if USER.lsp.settings[server] then
         vim.lsp.config(server, USER.lsp.settings[server])

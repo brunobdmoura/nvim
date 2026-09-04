@@ -6,9 +6,10 @@ local palettes = {
   material = "appearance.custom_schemes.material",
   catppuccin = "appearance.custom_schemes.catppuccin",
   kanso = "appearance.custom_schemes.kanso",
+  luna = "appearance.custom_schemes.luna",
 }
 
-local colorscheme = require(palettes.kanagawa)
+local colorscheme = require(palettes.luna)
 tabline_colors = colorscheme.tabline_colors
 statusline_colors = colorscheme.statusline_colors
 
