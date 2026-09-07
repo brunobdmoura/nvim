@@ -1,14 +1,5 @@
 local helpers = {}
 
--- Concatenates all of the values in the @table into a single string.
-function helpers.format_table(table)
-  local str = ""
-  for _, value in pairs(table) do
-    str = str .. value
-  end
-  return str
-end
-
 -- Returns the @text surrounded by the separators in the @separators table.
 function helpers.contour(text, separators)
   return separators[1] .. text .. separators[#separators]
@@ -16,7 +7,7 @@ end
 
 -- Transforms a highlight name into a useful highlight string.
 function helpers.highlightfy(str)
-  return helpers.format_table({ '%', '#', str, '#' })
+  return table.concat({ '%', '#', str, '#' })
 end
 
 -- Defines all of the highlight groups to their configuration values.
@@ -62,20 +53,21 @@ M._data = {}
 M._data.cached = ""
 
 M._data.highlights = {
-  normal      = "StatusLineNormalColor",
-  visual      = "StatusLineVisualColor",
-  insert      = "StatusLineInsertColor",
-  select      = "StatusLineSelectColor",
-  replace     = "StatusLineReplaceColor",
-  quickfix    = "StatusLineQfColor",
-  shell       = "StatusLineShellColor",
-  terminal    = "StatusLineTerminalColor",
-  confirm     = "StatusLineConfirmColor",
-  file_name   = "StatusLineFileName",
-  line_filler = "StatusLineFiller",
-  versioning  = "StatusLineVersioning",
-  file_type   = "StatusLineFileType",
-  line_number = "StatusLineLineNumber"
+  normal            = "StatusLineNormalColor",
+  visual            = "StatusLineVisualColor",
+  insert            = "StatusLineInsertColor",
+  select            = "StatusLineSelectColor",
+  replace           = "StatusLineReplaceColor",
+  quickfix          = "StatusLineQfColor",
+  shell             = "StatusLineShellColor",
+  terminal          = "StatusLineTerminalColor",
+  confirm           = "StatusLineConfirmColor",
+  file_name         = "StatusLineFileName",
+  line_filler       = "StatusLineFiller",
+  versioning_add    = "StatusLineVersioningAdd",
+  versioning_delete = "StatusLineVersioningDelete",
+  file_type         = "StatusLineFileType",
+  line_number       = "StatusLineLineNumber"
 }
 
 M._data.modes = {
@@ -106,7 +98,6 @@ M._data.modes = {
   ["rm"]  = { text = "More",           color = helpers.highlightfy(M._data.highlights.confirm) },
   ["r?"]  = { text = "Confirm",        color = helpers.highlightfy(M._data.highlights.confirm) },
   ["qf"]  = { text = "Quickfix_list",  color = helpers.highlightfy(M._data.highlights.quickfix) },
-  ["_g"]  = { text = "_None",          color = helpers.highlightfy(M._data.highlights.versioning) },
   ["_t"]  = { text = "_None",          color = helpers.highlightfy(M._data.highlights.file_type) },
   ["_l"]  = { text = "_None",          color = helpers.highlightfy(M._data.highlights.line_number) },
 }
@@ -115,7 +106,7 @@ M._data.modes = {
 function M.mode(override)
   local current_mode = vim.api.nvim_get_mode().mode
   local entry = override and M._data.modes[override] or M._data.modes[current_mode]
-  return helpers.format_table({
+  return table.concat({
     entry.color, helpers.contour(entry.text, M._data.tokens.separators)
   })
 end
@@ -155,27 +146,30 @@ function M.file_path()
     end
   end
 
-  file_name = helpers.format_table({ M._data.modes["c"].color, file_name, icon })
+  file_name = table.concat({ M._data.modes["c"].color, file_name, icon })
   file_path = helpers.contour(
-    helpers.format_table({ file_path, file_name, " " }),
+    table.concat({ file_path, file_name, " " }),
     M._data.tokens.separators
   )
 
-  return helpers.format_table({
-    helpers.highlightfy(M._data.highlights.file_name), file_path
+  local file_name_color = helpers.highlightfy(M._data.highlights.file_name)
+  return table.concat({
+    file_name_color, file_path
   })
 end
 
 -- Access the current file metadata; encoding and type.
 function M.file_metadata()
-  local encoding = vim.bo.fileencoding
-  local _type = vim.bo.filetype
-  local line_info = vim.bo.filetype ~= "alpha" and "%l/%L:%c" or ""
+  local encoding = " " .. vim.bo.fileencoding
+  local line_info = vim.bo.filetype ~= "alpha" and " %l/%L:%c" or ""
 
-  return helpers.format_table({
-    M._data.modes["_t"].color,
-    helpers.contour(encoding, M._data.tokens.separators),
-    M._data.modes["_l"].color, line_info
+  local encoding_color = helpers.highlightfy(M._data.highlights.file_type)
+  local line_info_colors = helpers.highlightfy(M._data.highlights.line_number)
+  return table.concat({
+    encoding_color,
+    encoding,
+    line_info_colors,
+    line_info
   })
 end
 
@@ -190,23 +184,25 @@ function M.git_info()
     return ""
   end
 
-  branch = helpers.format_table({ M._data.modes["_g"].color, branch, " ", icon })
+  local branch_color = helpers.highlightfy(M._data.highlights.versioning_add)
+  branch = table.concat({ branch_color, branch, " ", icon })
 
   -- Access the current file changes; stored in a buffer-local variable.
   local changes = vim.b.git_changes or ""
   if changes ~= "" then
-    left_sep = helpers.format_table({ helpers.highlightfy(M._data.highlights.file_name), '(' })
-    right_sep = helpers.format_table({ helpers.highlightfy(M._data.highlights.file_name), ')' })
+    local separator_color = helpers.highlightfy(M._data.highlights.file_name)
+    left_sep = table.concat({ separator_color, '(' })
+    right_sep = table.concat({ separator_color, ')' })
   end
 
-  return helpers.format_table({
+  return table.concat({
     branch, left_sep, changes, right_sep
   })
 end
 
 -- Simple wrapper to highlight the line filler on statusline.
 function M.highlighted_line_filler()
-  return helpers.format_table({
+  return table.concat({
     helpers.highlightfy(M._data.highlights.line_filler), "%="
   })
 end
@@ -219,15 +215,15 @@ end
 -- Returns the number of elements in the quickfix list.
 function M.list_info()
   local num_elements = vim.fn.len(vim.fn.getqflist())
-  local message = helpers.format_table({ "with (", num_elements, ") elements" })
-  return helpers.format_table({
+  local message = table.concat({ "with (", num_elements, ") elements" })
+  return table.concat({
     helpers.highlightfy(M._data.highlights.file_name), message
   })
 end
 
 -- Called upon statusline updates.
 function M.refresh()
-  -- Return a string containing the line M._data information with all of its
+  -- Return a string containing the line M._data inconcation with all of its
   -- fields properly concatenated.
   local is_list = M.is_list()
   local mode = is_list and M.mode("qf") or M.mode()
@@ -236,7 +232,7 @@ function M.refresh()
   local type = vim.bo.filetype
 
   if type == "" then
-    return helpers.format_table({
+    return table.concat({
       mode,
       M.highlighted_line_filler(),
       path
@@ -249,7 +245,7 @@ function M.refresh()
     end
   end
 
-  M._data.cached = helpers.format_table({
+  M._data.cached = table.concat({
     mode,
     M.highlighted_line_filler(),
     path,
@@ -312,19 +308,22 @@ function M.metadata_setup()
       vim.b.git_changes = ""
       return
     end
-    local formated = ""
+
+    local concatenated = ""
 
     if additions ~= "0" then
-      formated = helpers.format_table({ helpers.highlightfy(M._data.highlights.versioning), "+", additions})
+      local addition_color = helpers.highlightfy(M._data.highlights.versioning_add)
+      concatenated = table.concat({addition_color, "+", additions})
     end
 
     if deletions ~= "0" then
-      local icon = formated ~= "" and " ~" or "~"
-      formated = helpers.format_table({ formated, M._data.modes["v"].color, icon, deletions })
+      local icon = concatenated ~= "" and " ~" or "~"
+      local deleted_color = helpers.highlightfy(M._data.highlights.versioning_delete)
+      concatenated = table.concat({ concatenated, deleted_color, icon, deletions })
     end
 
     -- Store in buffer-local variable
-    vim.b.git_changes = formated
+    vim.b.git_changes = concatenated
   end
 
   vim.api.nvim_create_autocmd({"BufEnter", "BufWritePost", "TextChanged"}, {
