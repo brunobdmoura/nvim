@@ -1,13 +1,6 @@
 -- Shamelessly based on luatab https://github.com/alvarosevilla95/luatab.nvim
 local helpers = {}
 
---- Concatenates all of the elements in the @tbl table into a single string.
----@param tbl table: a table of strings
----@return string
-function helpers.format_table(tbl)
-  return table.concat(tbl)
-end
-
 --- Applies the contour to a given text.
 ---@param text string: the text to be contoured
 ---@param separators table: a table with two elements, the left and right separators
@@ -20,7 +13,7 @@ end
 ---@param str string: the name of the highlight group
 ---@return string
 function helpers.highlightfy(str)
-  return helpers.format_table({ '%', '#', str, '#' })
+  return table.concat({ '%', '#', str, '#' })
 end
 
 -- Defines all of the highlight groups to their configuration values.
@@ -121,7 +114,7 @@ function M.title(bufnr, is_selected)
     and { M._data.colors.active_tab, title, " " }
     or { M._data.colors.inactive_tab, title, M._data.colors.inactive_tab, " " }
 
-  return helpers.format_table(cell_title)
+  return table.concat(cell_title)
 end
 
 --- Checks if a given buffer is modified and returns the corresponding token.
@@ -147,9 +140,7 @@ function M.window_count(index)
   if nwins == 1 then
     return ""
   else
-    return helpers.format_table({
-      helpers.contour(nwins, M._data.tokens.sub_separators), " "
-    })
+    return helpers.contour(tostring(nwins), M._data.tokens.sub_separators)
   end
 end
 
@@ -162,9 +153,9 @@ function M.cell(index, is_selected)
   local winnr = vim.fn.tabpagewinnr(index)
   local bufnr = buflist[winnr]
 
-  return helpers.format_table({
+  return table.concat({
     "%", index, "T", " ",
-    --M.window_count(index),
+    -- M.window_count(index), " ",
     M.title(bufnr, is_selected), "%T",
     M.modified(bufnr),
   })
@@ -179,15 +170,15 @@ function M.eval_style(index, cell, is_selected)
   local styles = {
     ["surrounded"] = function(index, cell, is_selected)
       if is_selected then
-        local text = helpers.format_table({
+        local text = table.concat({
           M._data.colors.active_tab, cell, M._data.colors.separator
         })
-        return helpers.format_table({
+        return table.concat({
           M._data.colors.separator,
           helpers.contour(text, M._data.tokens.separators)
         })
       else
-        return helpers.format_table({
+        return table.concat({
           M._data.colors.inactive_tab,
           helpers.contour(cell, M._data.tokens.separators)
         })
