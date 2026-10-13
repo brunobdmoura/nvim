@@ -29,7 +29,8 @@ USER = {
       "json",
       "yaml",
       "markdown",
-      "rust"
+      "rust",
+      "go"
     }
   },
   indent_size = 4,
